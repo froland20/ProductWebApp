@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-6 text-center">Register</h1>
+
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {{ flash_error }}
+                </div>
+            {% endfor %}
+
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+            <div class="mb-4">
+                {{ form_label(registrationForm.email, 'Email', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainPassword, 'Password', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainFirstName, 'First Name', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(registrationForm.plainFirstName, {'attr': {'class': 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+                {{ form_errors(registrationForm.plainFirstName) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainLastName, 'Last Name', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(registrationForm.plainLastName, {'attr': {'class': 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+                {{ form_errors(registrationForm.plainLastName) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainGender, 'Gender', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(registrationForm.plainGender, {'attr': {'class': 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+                {{ form_errors(registrationForm.plainGender) }}
+            </div>
+
+            <div class="mb-4 flex items-center">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'h-4 w-4 text-indigo-600 border-gray-300 rounded'}}) }}
+                {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'attr': {'class': 'ml-2 text-sm text-gray-900'}}) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                Register
+            </button>
+            {{ form_end(registrationForm) }}
+
+            <p class="mt-4 text-center text-sm text-gray-600">
+                Do you already have an account? <a href="{{ path('app_login') }}"
+                                                   class="text-indigo-600 hover:underline">Click here to Login</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
