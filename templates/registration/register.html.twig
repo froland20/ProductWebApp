@@ -46,6 +46,12 @@
                 {{ form_errors(registrationForm.plainGender) }}
             </div>
 
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainProfilePicture, 'Choose profile picture', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(registrationForm.plainProfilePicture, {'attr': {'class': 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+                {{ form_errors(registrationForm.plainProfilePicture) }}
+            </div>
+
             <div class="mb-4 flex items-center">
                 {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'h-4 w-4 text-indigo-600 border-gray-300 rounded'}}) }}
                 {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'attr': {'class': 'ml-2 text-sm text-gray-900'}}) }}

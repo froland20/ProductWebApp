@@ -8,6 +8,13 @@
             <h1 class="text-3xl font-bold mb-6">
                 Hello, {{ app.user.firstName ~ ' ' ~ app.user.lastName }}
             </h1>
+
+            {% if app.user.profilePicture is not null %}
+                <div class="mb-4">
+                    <img src="{{ asset('uploads/images/' ~ app.user.profilePicture) }}" alt="Profile Picture" class="rounded-full w-32 h-32 object-cover mx-auto">
+                </div>
+            {% endif %}
+
             <p class="text-gray-800 mb-4">
                 E-mail:
                 <a href="mailto:{{ app.user.email }}" class="text-blue-600 hover:underline">

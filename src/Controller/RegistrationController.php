@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -19,8 +21,9 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
+    public function __construct(private EmailVerifier $emailVerifier, #[Autowire('%photo_dir%')] string $photoDir)
     {
+        $this->photoDir = $photoDir;
     }
 
     #[Route('/register', name: 'app_register')]
@@ -52,6 +55,17 @@ class RegistrationController extends AbstractController
             $user->setGender(
                 $form->get('plainGender')->getData()
             );
+
+            if ($photo = $form->get('plainProfilePicture')->getData()) {
+                $fileName = uniqid() . '.' . $photo->guessExtension();
+                $filesystem = new Filesystem();
+                if (!$filesystem->exists($this->photoDir)) {
+                    $filesystem->mkdir($this->photoDir, 0755);
+                }
+                $photo->move($this->photoDir, $fileName);
+                $filesystem->chmod($this->photoDir . '/' . $fileName, 0644);
+                $user->setProfilePicture($fileName);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
