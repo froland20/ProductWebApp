@@ -8,8 +8,9 @@
             <a href="{{ path('homepage') }}" class="hover:text-gray-400">About</a>
             <a href="{{ path('homepage') }}" class="hover:text-gray-400">Contact</a>
         </div>
-        <div>
+        <div class="space-x-4">
             {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="hover:text-gray-400">Manage</a>
                 <a href="{{ path('app_logout') }}" class="hover:text-gray-400">Logout</a>
             {% else %}
                 <a href="{{ path('app_login') }}" class="hover:text-gray-400">Login</a>
