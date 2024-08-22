@@ -8,10 +8,17 @@
             <a href="{{ path('homepage') }}" class="hover:text-gray-400">About</a>
             <a href="{{ path('homepage') }}" class="hover:text-gray-400">Contact</a>
         </div>
-        <div class="space-x-4">
+        <div class="flex items-center space-x-4">
             {% if app.user %}
-                <a href="{{ path('app_logout') }}" class="hover:text-gray-400">Manage</a>
+                <a href="{{ path('app_manage') }}" class="hover:text-gray-400">Manage</a>
                 <a href="{{ path('app_logout') }}" class="hover:text-gray-400">Logout</a>
+
+                {% if app.user.profilePicture %}
+                    <a href="{{ path('app_manage') }}" class="hover:text-gray-400">
+                        <img src="{{ asset('uploads/images/' ~ app.user.profilePicture) }}" alt="Profile Picture"
+                             class="w-8 h-8 rounded-full">
+                    </a>
+                {% endif %}
             {% else %}
                 <a href="{{ path('app_login') }}" class="hover:text-gray-400">Login</a>
                 <a href="{{ path('app_register') }}" class="hover:text-gray-400">Register</a>

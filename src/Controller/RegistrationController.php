@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use AllowDynamicProperties;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
@@ -19,9 +20,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+#[AllowDynamicProperties] class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier, #[Autowire('%photo_dir%')] string $photoDir)
+    public function __construct(private readonly EmailVerifier $emailVerifier, #[Autowire('%photo_dir%')] string $photoDir)
     {
         $this->photoDir = $photoDir;
     }
