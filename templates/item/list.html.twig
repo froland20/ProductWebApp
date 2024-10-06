@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-semibold mb-4">Items</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {% for item in items %}
+                <div class="border rounded-lg p-4">
+                    <img src="{{ asset('uploads/images/' ~ item.image) }}" alt="{{ item.name }}" class="w-full h-auto mb-4">
+                    <h2 class="text-lg font-bold">{{ item.name }}</h2>
+                    <p>{{ item.shortDescription }}</p>
+                    <p class="text-green-500 font-semibold">{{ item.price }} {{ item.currency.symbol }}</p>
+                </div>
+            {% else %}
+                <p>No items available.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
