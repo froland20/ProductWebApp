@@ -1,18 +1,57 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+    {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% include 'navbar/navbar.html.twig' %}
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+    <style>
+        .back-button-container {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1100;
+        }
+
+        .back-button-container a {
+            display: inline-block;
+            background-color: #e2e8f0;
+            color: #2d3748;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-button-container a:hover {
+            background-color: #cbd5e0;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-container {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+{% if app.request.headers.get('referer') is not empty %}
+    <div class="back-button-container">
+        <a href="{{ app.request.headers.get('referer') }}">← Vissza</a>
+    </div>
+{% endif %}
+
+{% include 'navbar/navbar.html.twig' %}
+
+<div class="content-container">
+    {% block body %}{% endblock %}
+</div>
+</body>
 </html>
