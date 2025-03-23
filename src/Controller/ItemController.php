@@ -53,13 +53,36 @@ class ItemController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'item_list')]
+    #[Route('/list', name: 'item_list')]
+    #[IsGranted('ROLE_USER')]
     public function list(ItemRepository $itemRepository): Response
     {
-        $items = $itemRepository->findBy(['isActive' => true]);
+        $items = $itemRepository->findAllByUser(['isActive' => true]);
 
         return $this->render('item/list.html.twig', [
             'items' => $items,
+        ]);
+    }
+
+    #[Route('/details/{id}', name: 'item_details', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function details(int $id, ItemRepository $itemRepository): Response
+    {
+        $item = $itemRepository->find($id);
+
+        if (!$item) {
+            return $this->json(['error' => 'Item not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json([
+            'id' => $item->getId(),
+            'name' => $item->getName(),
+            'shortDescription' => $item->getShortDescription(),
+            'description' => $item->getDescription(),
+            'price' => $item->getPrice(),
+            'currency' => $item->getCurrency()->getSymbol(),
+            'image' => $item->getImage(),
+            'createdBy' => $item->getCreatedBy()->getFirstName() . ' ' . $item->getCreatedBy()->getLastName()
         ]);
     }
 }

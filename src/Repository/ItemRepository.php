@@ -15,4 +15,18 @@ class ItemRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Item::class);
     }
+
+    public function findAllByUser(array $criteria = []): array
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->addSelect('u')
+            ->join('i.createdBy', 'u');
+
+        foreach ($criteria as $field => $value) {
+            $qb->andWhere(sprintf('i.%s = :%s', $field, $field))
+                ->setParameter($field, $value);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
