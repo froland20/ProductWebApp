@@ -109,26 +109,26 @@
 </head>
 <body>
 <nav>
-    <!-- Fix "Vissza" gomb -->
+    <!-- Fix "back" button -->
     {% if app.request.headers.get('referer') is not empty and app.user %}
         <div class="back-button-container">
             <a href="{{ app.request.headers.get('referer') }}">← Back</a>
         </div>
     {% endif %}
 
-    <!-- Fix cím -->
+    <!-- Fix title -->
     <div class="navbar-title">Symfony Login</div>
 
-    <!-- Navigációs linkek (asztali nézetben) -->
+    <!-- nav links (desktop view) -->
     <div class="navbar-links">
         {% include 'navbar/navigation_links.html.twig' %}
     </div>
 
-    <!-- Hamburger menü (mobil nézetben) -->
+    <!-- Hamburger menu (mobile view) -->
     <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
 </nav>
 
-<!-- Mobil menü -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
     {% include 'navbar/navigation_links.html.twig' %}
 </div>
