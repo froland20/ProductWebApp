@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Felhasználó szerepköreinek szerkesztése{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto mt-10">
+        <h1 class="text-2xl font-bold mb-6">Felhasználó szerepköreinek szerkesztése</h1>
+
+        <div class="bg-white shadow-md rounded p-6">
+            <p><strong>Név:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+            <p><strong>E-mail:</strong> {{ user.email }}</p>
+
+            <form method="post" class="mt-6" action="{{ path('edit_user_role', {id: user.id}) }}">
+                <div class="mb-4">
+                    <label for="roles" class="block text-gray-700 font-bold mb-2">Szerepkörök kiválasztása</label>
+                    <select
+                            name="roles[]"
+                            id="roles"
+                            multiple
+                            class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                        {% for role in roles %}
+                            <option
+                                    value="{{ role.name }}"
+                                    {% if role.name in user.roles %} selected {% endif %}
+                            >
+                                {{ role.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <p class="text-sm text-gray-500 mt-1">Tartsd lenyomva a Ctrl-t (Windows) vagy a Command-t (Mac), hogy több szerepkört válassz.</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button
+                            type="submit"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Mentés
+                    </button>
+                    <a
+                            href="{{ path('app_user_role') }}"
+                            class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                        Vissza a listához
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
