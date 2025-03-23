@@ -1,0 +1,9 @@
+<a href="{{ path('homepage') }}">Home</a>
+{% if app.user %}
+    <a href="{{ path('item_new') }}">Add item</a>
+    <a href="{{ path('app_manage') }}">Manage</a>
+    <a href="{{ path('app_logout') }}">Logout</a>
+{% else %}
+    <a href="{{ path('app_login') }}">Login</a>
+    <a href="{{ path('app_register') }}">Register</a>
+{% endif %}

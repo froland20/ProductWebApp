@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <style>
+        /* NAVIGATION BAR */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #2d3748;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .back-button-container {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .back-button-container a {
+            background-color: #e2e8f0;
+            color: #2d3748;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-button-container a:hover {
+            background-color: #cbd5e0;
+        }
+
+        .navbar-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #cbd5e0;
+        }
+
+        /* HAMBURGER MENU VISIBLE ON MOBILE */
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #2d3748;
+            padding: 10px;
+            position: absolute;
+            right: 20px;
+            top: 60px;
+            z-index: 1000;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+
+        .mobile-menu a {
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .mobile-menu a:hover {
+            background-color: #4a5568;
+            border-radius: 4px;
+        }
+
+        /* ACTIVE CLASS FOR THE MOBILE MENU */
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* RESPONSIVE STYLING */
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <!-- Fix "Vissza" gomb -->
+    {% if app.request.headers.get('referer') is not empty and app.user %}
+        <div class="back-button-container">
+            <a href="{{ app.request.headers.get('referer') }}">← Vissza</a>
+        </div>
+    {% endif %}
+
+    <!-- Fix cím -->
+    <div class="navbar-title">Symfony Login</div>
+
+    <!-- Navigációs linkek (asztali nézetben) -->
+    <div class="navbar-links">
+        {% include 'navbar/navigation_links.html.twig' %}
+    </div>
+
+    <!-- Hamburger menü (mobil nézetben) -->
+    <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
+</nav>
+
+<!-- Mobil menü -->
+<div class="mobile-menu" id="mobileMenu">
+    {% include 'navbar/navigation_links.html.twig' %}
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('mobileMenu').classList.toggle('active');
+    }
+</script>
+</body>
+</html>

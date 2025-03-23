@@ -11,42 +11,8 @@
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
-    <style>
-        .back-button-container {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1100;
-        }
-
-        .back-button-container a {
-            display: inline-block;
-            background-color: #e2e8f0;
-            color: #2d3748;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .back-button-container a:hover {
-            background-color: #cbd5e0;
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .content-container {
-            margin-top: 80px;
-        }
-    </style>
 </head>
 <body>
-{% if app.request.headers.get('referer') is not empty %}
-    <div class="back-button-container">
-        <a href="{{ app.request.headers.get('referer') }}">← Vissza</a>
-    </div>
-{% endif %}
 
 {% include 'navbar/navbar.html.twig' %}
 
