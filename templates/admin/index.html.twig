@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello, {{ app.user.firstName ~ ' ' ~ app.user.lastName }}!{% endblock %}
+
+<link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
 
 {% block body %}
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
