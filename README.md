@@ -1,4 +1,4 @@
-# Symfony Base Login System
+# Symfony Product Web App System
 
 ## Installation Guide
 
