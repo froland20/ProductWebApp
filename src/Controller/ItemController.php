@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ItemController extends AbstractController
 {
     #[Route('/new', name: 'item_new')]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_EDITOR')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $item = new Item();
