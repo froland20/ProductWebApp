@@ -38,10 +38,14 @@
                 <a href="{{ path('app_manage') }}"
                    class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded transition">
                     Edit profile
-                </a><a href="{{ path('app_user_role') }}"
-                   class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
-                    User Roles
                 </a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_user_role') }}"
+                       class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
+                        User Roles
+                    </a>
+                {% endif %}
             </div>
 
             <a href="{{ path('app_logout') }}" class="text-indigo-600 hover:underline text-lg mt-4 inline-block">
