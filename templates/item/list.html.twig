@@ -8,11 +8,11 @@
                 <div class="border rounded-lg p-4 shadow-md bg-white">
                     <div class="flex items-center mb-4">
                         <img src="{{ item.createdBy ? (item.createdBy.profilePicture ? asset('uploads/images/' ~ item.createdBy.profilePicture) : asset('images/profile/profile-placeholder.jpg')) }}"
-                             alt="{{ item.createdBy ? (item.createdBy.firstName ~ ' ' ~ item.createdBy.lastName) : 'Unknown User' }}"
+                             alt="{{ item.createdBy ? (item.createdBy.firstName ~ ' ' ~ item.createdBy.lastName) : 'Unknown user' }}"
                              class="w-12 h-12 rounded-full mr-3">
                         <div>
                             <p class="text-sm font-medium">
-                                {{ item.createdBy ? (item.createdBy.firstName ~ ' ' ~ item.createdBy.lastName) : 'Ismeretlen Felhasználó' }}
+                                {{ item.createdBy ? (item.createdBy.firstName ~ ' ' ~ item.createdBy.lastName) : 'Unknown user' }}
                             </p>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <button onclick="showModal(this.getAttribute('data-url'))"
                             data-url="{{ path('item_details', { id: item.id }) }}"
                             class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                        Megnézem
+                        View
                     </button>
                 </div>
             {% else %}
@@ -45,70 +45,16 @@
             <div class="text-center mb-4">
                 <img id="modalImage" class="rounded-lg mx-auto w-48 h-48 object-cover" src="" alt="">
             </div>
-            <h2 id="modalTitle" class="text-2xl font-bold mb-4">Részletes információ</h2>
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4">Detailed information</h2>
             <p id="shortModalContent" class="text-gray-700 mb-4"></p>
             <p id="modalContent" class="text-gray-700 mb-4"></p>
             <p id="modalPrice" class="text-green-500 font-semibold mb-4"></p>
             <p id="modalCreatedBy" class="text-gray-600 mb-4"></p>
             <button onclick="purchaseItem()"
                     class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                Vásárlás
+                Purchase
             </button>
         </div>
     </div>
-    <script>
-        async function showModal(fetchUrl) {
-            const modal = document.getElementById('itemModal');
-            const title = document.getElementById('modalTitle');
-            const shortContent = document.getElementById('shortModalContent');
-            const content = document.getElementById('modalContent');
-            const price = document.getElementById('modalPrice');
-            const createdBy = document.getElementById('modalCreatedBy');
-            const image = document.getElementById('modalImage');
-            const purchaseButton = document.querySelector('button[onclick="purchaseItem()"]');
-
-            title.textContent = 'Loading...';
-            shortContent.textContent = '';
-            content.textContent = '';
-            price.textContent = '';
-            createdBy.textContent = '';
-            image.setAttribute('src', '');
-            image.style.display = 'none';
-            purchaseButton.style.display = 'none';
-            try {
-                modal.style.display = 'flex';
-
-                const response = await fetch(fetchUrl);
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
-                }
-                const data = await response.json();
-                title.textContent = data.name || 'No name available';
-                shortContent.textContent = data.shortDescription || '';
-                content.textContent = data.description || '';
-                price.textContent = `${data.price} ${data.currency || ''}`;
-                createdBy.textContent = data.createdBy || 'Unknown user';
-
-                if (data.image) {
-                    image.setAttribute('src', '/uploads/images/' + data.image);
-                    image.style.display = 'block';
-                }
-
-                purchaseButton.style.display = 'inline-block';
-
-            } catch (error) {
-                console.error('Modal loading error:', error);
-                title.textContent = 'An error occurred';
-                content.textContent = 'Failed to load item details. Please try again later.';
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('itemModal');
-
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        }
-    </script>
+    <script src="{{ asset('js/item-modal.js') }}"></script>
 {% endblock %}
