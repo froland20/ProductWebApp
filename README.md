@@ -17,7 +17,7 @@ cd your-repository
 
   ```bash
   # Database configuration
-  DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/symfony_login?charset=utf8mb4"
+  DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/product_web?charset=utf8mb4"
 
   # Mailer configuration
   MAILER_DSN=smtp://username:password@smtp.example.com:587
